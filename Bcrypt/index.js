@@ -26,32 +26,35 @@ app.post('/register',(req,res)=>{
         console.log(err)
     })
 })
-app.post('/login',(req,res)=>{
-    const {email,password}=req.body
-    EmployeeModel.findOne({email})
-    .then((user)=>{
-        if(user){
-            bcrypt.compare(password,user.password,(err,response)=>{
-                if(err){
-                    return res.json({message:"The password is incorrect"})
-                }
-                if(response){
-                    return res.json({message:"The password is correct"})
 
-                }
-            })
-        }else{
-            return res.json({message:"No record Existed"})
-        }
+app.post('/login', (req, res) => {
+    const { email, password } = req.body;
 
-    })
-    .catch(err=>{
-        return res.json(err)
-    })
-})
+    EmployeeModel.findOne({ email })
+        .then(user => {
+            if (!user) {
+                return res.json({ message: "No record existed" });
+            }
+
+            bcrypt.compare(password, user.password, (err, isMatch) => {
+                if (err) {
+                    return res.json({ message: "Server error" });
+                }
+
+                if (isMatch) {
+                    return res.json({ message: "Login successful" });
+                } else {
+                    return res.json({ message: "Incorrect password" });
+                }
+            });
+        })
+        .catch(err => res.json(err));
+});
+
 
 
 
 app.listen(3001,()=>{
     console.log("Port 3001 running")
+
 })
