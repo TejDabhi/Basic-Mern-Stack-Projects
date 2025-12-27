@@ -15,7 +15,8 @@ Automatically adds a unique salt
 Stores only the hashed password in the database
 
 ✅ Used in Signup API
-```app.post('/register',(req,res)=>{
+```
+app.post('/register',(req,res)=>{
     const {name,email,password}=req.body
     bcrypt.hash(password,10)
     .then(hash=>{
@@ -39,6 +40,8 @@ const isMatch = await bcrypt.compare(password, user.password);
 Returns true if passwords match
 Returns false if credentials are invalid
 Original password is never revealed
+
+✅ Used in Login API
 ```
 app.post('/login',(req,res)=>{
     const {email,password}=req.body
