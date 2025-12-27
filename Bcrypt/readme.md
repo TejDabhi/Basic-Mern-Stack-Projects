@@ -43,29 +43,30 @@ Original password is never revealed
 
 ✅ Used in Login API
 ```
-app.post('/login',(req,res)=>{
-    const {email,password}=req.body
-    EmployeeModel.findOne({email})
-    .then((user)=>{
-        if(user){
-            bcrypt.compare(password,user.password,(err,response)=>{
-                if(err){
-                    return res.json({message:"The password is incorrect"})
-                }
-                if(response){
-                    return res.json({message:"The password is correct"})
+app.post('/login', (req, res) => {
+    const { email, password } = req.body;
 
-                }
-            })
-        }else{
-            return res.json({message:"No record Existed"})
-        }
+    EmployeeModel.findOne({ email })
+        .then(user => {
+            if (!user) {
+                return res.json({ message: "No record existed" });
+            }
 
-    })
-    .catch(err=>{
-        return res.json(err)
-    })
-})
+            bcrypt.compare(password, user.password, (err, isMatch) => {
+                if (err) {
+                    return res.json({ message: "Server error" });
+                }
+
+                if (isMatch) {
+                    return res.json({ message: "Login successful" });
+                } else {
+                    return res.json({ message: "Incorrect password" });
+                }
+            });
+        })
+        .catch(err => res.json(err));
+});
+
 ```
 
 ## 🔄 Authentication Flow
