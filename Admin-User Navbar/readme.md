@@ -76,23 +76,14 @@ const [role,setRole]=useState('admin')
     </div>
   )
 ```
-2 Login.jsx
+2. Login.jsx
 ```
 const handleSubmit=(e)=>{
     e.preventDefault()
     axios.post('http://localhost:3001/login',{username,password,role})
 }
 ```
-3 server/Models/Admin.js
-```
-const mongoose=require('mongoose')
-const AdminModel=new mongoose.Schema({
-    username:{type:String,required:true,unique:true},
-    password:{type:String,required:true}
-})
-module.exports=mongoose.model('Admins',AdminModel)
-```
-4 seerver/index.js
+3. server/index.js
 ```
 app.post('/login', (req, res) => {
     const { username, password, role } = req.body;
@@ -124,7 +115,7 @@ app.post('/login', (req, res) => {
     }
 });
 ```
-5 In Login.jsx
+4. In Login.jsx
 ```
 axios.post('http://localhost:3001/login',{username,password,role})
 .then((res)=>{
@@ -140,7 +131,7 @@ axios.post('http://localhost:3001/login',{username,password,role})
     }
 })
 ```
-6. App.jsx
+5. App.jsx
 ```
 function App() {
   const [role,setRole]=useState('')// fetch role from Login.jsx  and paste that role to the Navbar
@@ -160,7 +151,7 @@ function App() {
 
 export default App
 ```
-7 Login.jsx
+6. Login.jsx
 ```
 const handleSubmit=(e)=>{
     e.preventDefault()
@@ -181,7 +172,7 @@ const handleSubmit=(e)=>{
     })
 }
 ```
-8.Navbar.jsx
+7. Navbar.jsx
 ```
 {role === "admin" && (
               <>
@@ -208,7 +199,7 @@ const handleSubmit=(e)=>{
               </>
             )}
 ```
-9. logout.jsx
+8. logout.jsx
 ```
 const Logout = ({setRole}) => {
     const navigate=useNavigate()
