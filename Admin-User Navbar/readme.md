@@ -42,7 +42,7 @@ Example response:
 ```
 
 ### 3️⃣ Code Flow
-1 In Login.jsx
+1. In Login.jsx
 First we make a form in Login.jsx
 ```
 const [username,setUsername]=useState('')
