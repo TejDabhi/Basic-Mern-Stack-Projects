@@ -43,7 +43,7 @@ Example response:
 
 ### 3️⃣ Code Flow
 - 1 In Login.jsx
-- First we make a form in Login.jsx
+First we make a form in Login.jsx
 ```
 const [username,setUsername]=useState('')
 const [password,setPassword]=useState('')
@@ -76,14 +76,14 @@ const [role,setRole]=useState('admin')
     </div>
   )
 ```
-2. Login.jsx
+- 2. Login.jsx
 ```
 const handleSubmit=(e)=>{
     e.preventDefault()
     axios.post('http://localhost:3001/login',{username,password,role})
 }
 ```
-3. server/index.js
+- 3. server/index.js
 ```
 app.post('/login', (req, res) => {
     const { username, password, role } = req.body;
@@ -115,7 +115,7 @@ app.post('/login', (req, res) => {
     }
 });
 ```
-4. In Login.jsx
+- 4. In Login.jsx
 ```
 axios.post('http://localhost:3001/login',{username,password,role})
 .then((res)=>{
@@ -131,7 +131,7 @@ axios.post('http://localhost:3001/login',{username,password,role})
     }
 })
 ```
-5. App.jsx
+- 5. App.jsx
 ```
 function App() {
   const [role,setRole]=useState('')// fetch role from Login.jsx  and paste that role to the Navbar
@@ -151,7 +151,7 @@ function App() {
 
 export default App
 ```
-6. Login.jsx
+- 6. Login.jsx
 ```
 const handleSubmit=(e)=>{
     e.preventDefault()
@@ -172,34 +172,34 @@ const handleSubmit=(e)=>{
     })
 }
 ```
-7. Navbar.jsx
+- 7. Navbar.jsx
 ```
 {role === "admin" && (
-              <>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/logout">
-                    Dashboard
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/logout">
-                    Logout
-                  </Link>
-                </li>
-                
-              </>
-            )}
-            {role === "" && (
-              <>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/Login">
-                    Login
-                  </Link>
-                </li>
-              </>
-            )}
+  <>
+    <li className="nav-item">
+      <Link className="nav-link" to="/logout">
+        Dashboard
+      </Link>
+    </li>
+    <li className="nav-item">
+      <Link className="nav-link" to="/logout">
+        Logout
+      </Link>
+    </li>
+    
+  </>
+)}
+{role === "" && (
+  <>
+    <li className="nav-item">
+      <Link className="nav-link" to="/Login">
+        Login
+      </Link>
+    </li>
+  </>
+)}
 ```
-8. logout.jsx
+- 8. logout.jsx
 ```
 const Logout = ({setRole}) => {
     const navigate=useNavigate()
