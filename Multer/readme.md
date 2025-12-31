@@ -1,4 +1,4 @@
-## 📦 Image Upload Using Multer (Memory Storage) & MongoDB
+# 📦 Image Upload Using Multer (Memory Storage) & MongoDB
 
 This project demonstrates how to upload images directly into MongoDB using Multer memory storage, without saving files to any folder.
 
