@@ -16,22 +16,42 @@ Stores only the hashed password in the database
 
 ✅ Used in Signup API
 ```
-app.post('/register',(req,res)=>{
-    const {name,email,password}=req.body
-    bcrypt.hash(password,10)
-    .then(hash=>{
-        EmployeeModel.create({name,email,password:hash})
-        .then((user)=>{
-            return res.json(user)
-        })
-        .catch(err=>{
-            return res.json(err)
-        })
-    })
-    .catch(err=>{
-        console.log(err)
-    })
-})
+app.post('/register', async (req, res) => {
+    try {
+        const { name, email, password } = req.body;
+
+        // Check if user already exists
+        const existingUser = await EmployeeModel.findOne({ email });
+
+        if (existingUser) {
+            return res.status(400).json({
+                message: 'User already exists'
+            });
+        }
+
+        // Hash Password
+        const hash = await bcrypt.hash(password, 10);
+
+        // Create User
+        const user = await EmployeeModel.create({
+            name,
+            email,
+            password: hash
+        });
+
+        res.status(201).json({
+            message: 'User registered successfully',
+            user
+        });
+
+    } catch (err) {
+        console.log(err);
+
+        res.status(500).json({
+            message: 'Server error'
+        });
+    }
+});
 ```
 ## 2️⃣ Password Comparison (Login)
 
